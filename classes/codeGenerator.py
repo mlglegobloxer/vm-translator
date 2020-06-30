@@ -44,8 +44,13 @@ class Generator:
             "temp pop"      : ["@SP", "M=M-1", "A=M", "D=M", "@#", "M=D"]
         }
         
-        # WHY HAS SET SP TO 256 BEEN REMOVED???, REIMPLEMENT THIS
-
+        # Define a varible used to generate unique labels for commands that require them 
+        self.i = 0
+        
+        # Set the stack pointer to 256
+        self.output_file.writelines('\n'.join(["@256", "D=A", "@SP", "M=D"]) + "\n")
+        # Does this need to be done for local, argument, this and that???
+        
 
     def writeArithmetic(self, semantics):
         # Writes arithmetic / logic commands to output file, given the commands semantics #
