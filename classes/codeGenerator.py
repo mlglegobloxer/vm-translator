@@ -42,7 +42,9 @@ class Generator:
             "static pop"    : ["@SP", "M=M-1", "A=M", "D=M", "@#", "M=D"],
             "pointer pop"   : ["@SP", "M=M-1", "A=M", "D=M", "@#", "M=D"],
             "temp pop"      : ["@SP", "M=M-1", "A=M", "D=M", "@#", "M=D"]
-        } 
+        }
+        
+        # WHY HAS SET SP TO 256 BEEN REMOVED???, REIMPLEMENT THIS
 
 
     def writeArithmetic(self, semantics):
