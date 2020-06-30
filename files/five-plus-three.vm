@@ -1,8 +1,0 @@
-push constant 5
-push constant 3
-add
-pop local 1
-push constant 10
-push local 1
-lt
-push static 3
