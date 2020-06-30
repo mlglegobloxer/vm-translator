@@ -1,4 +1,4 @@
-// set SP = 256
+// Set SP to 256
 @256
 D=A
 @SP
@@ -132,7 +132,7 @@ M=M+1
 A=M-1
 M=D
 // push static 6
-@test2.6
+@files/test2.6
 D=M
 @SP
 M=M+1
@@ -213,7 +213,7 @@ M=D
 M=M-1
 A=M
 D=M
-@test2.7
+@files/test2.7
 M=D
 // pop pointer 1
 @SP

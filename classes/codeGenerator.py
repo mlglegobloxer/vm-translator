@@ -48,7 +48,7 @@ class Generator:
         self.i = 0
         
         # Set the stack pointer to 256
-        self.output_file.writelines('\n'.join(["@256", "D=A", "@SP", "M=D"]) + "\n")
+        self.output_file.writelines('\n'.join(["// Set SP to 256", "@256", "D=A", "@SP", "M=D"]) + "\n")
         # Does this need to be done for local, argument, this and that???
         
 

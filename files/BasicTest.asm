@@ -1,4 +1,3 @@
-// set SP = 256
 @256
 D=A
 @SP
@@ -141,7 +140,7 @@ M=D
 M=M-1
 A=M
 D=M
-@#
+@10
 M=D
 // push local 0
 @LCL
@@ -222,7 +221,7 @@ D=M
 A=A-1
 M=M-D
 // push temp 6
-@#
+@10
 D=M
 @SP
 M=M+1
