@@ -19,19 +19,15 @@ generator = classes.codeGenerator.Generator(file_name)
 
 # While there are remaining commands, translate commands to assembely
 while parser.hasMoreCommands():
-    # Store the current commmand
-    command = parser.advance()
+    # Store the current commmand's semantics
+    semantics = parser.advance()
 
-    ### Translate the current command to assembley ###
-    # If command is push/pop use the writePushPop()  method
-    # Else command is arithmetic, use the writeArithmetic() method
-    if command[0] == 0:
-        generator.writePushPop(command)
+    # Translate the semantics into assembely using the correct method for the commands type
+    if semantics[0] == 0:
+        generator.writePushPop(semantics)
     else:
-        generator.writeArithmetic(command)
+        generator.writeArithmetic(semantics)
     
 
 # Close the output file
 generator.close()
-
-### END ###
