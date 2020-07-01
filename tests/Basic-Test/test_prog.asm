@@ -1,3 +1,8 @@
+// Set SP to 256
+@256
+D=A
+@SP
+M=D
 // add
 @SP
 M=M-1
@@ -127,7 +132,7 @@ M=M+1
 A=M-1
 M=D
 // push static 6
-@test_prog.6
+@tests/Basic-Test/test_prog.6
 D=M
 @SP
 M=M+1
@@ -208,7 +213,7 @@ M=D
 M=M-1
 A=M
 D=M
-@test_prog.7
+@tests/Basic-Test/test_prog.7
 M=D
 // pop pointer 1
 @SP
