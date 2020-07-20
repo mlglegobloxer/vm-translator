@@ -17,12 +17,9 @@ parser = classes.parser.Parser(file_name)
 generator = classes.codeGenerator.Generator(file_name)
 
 
-# While there are remaining commands, translate commands to assembely
 while parser.hasMoreCommands():
-    # Store the current commmand's semantics
     semantics = parser.advance()
-
-    # Translate the semantics into assembely using the correct method for the commands type
+    # Translate into assembely using the correct method
     if semantics[0] == 0:
         generator.writePushPop(semantics)
     else:
