@@ -1,8 +1,8 @@
 # vm-translator
-
 My implementation of the vm-translator from the NAND to Tetris course on corsera
 
-This maps hack vm code:
+
+This program maps hack vm code:
 
     // Calculates (local 1) modulo 7 (inefficently)
 
