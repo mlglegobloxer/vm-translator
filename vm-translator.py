@@ -9,18 +9,18 @@ from sys import argv
 
 # Store a list of file_names to process
 if os.path.isdir(argv[1]):
-    # file_names = list of every .vm file in the given directory
+    # file_names = list of every .vm files in the given directory
     file_names = [os.path.join(argv[1], file) for file in os.listdir(argv[1]) if file[-3:] == '.vm']
 else:
     # Input is a single file
     file_names = [argv[1]]
 
-# Compile inputs
+# Compile all input files
 for file_name in file_names:
-    # Construct the parser and code generator
-    parser = classes.parser.Parser(file_name)
+    # Construct the parser and code generator for the file
+    parser    = classes.parser.Parser(file_name)
     generator = classes.codeGenerator.Generator(file_name)
-
+    # Compile each line
     while parser.hasMoreCommands():
         semantics = parser.advance()
         # Translate into assembely using the correct method
