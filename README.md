@@ -4,10 +4,7 @@ My implementation of the vm-translator from the NAND to Tetris course on corsera
 
 This program maps hack vm code:
 
-    // Calculates (local 1) modulo 7 (inefficently)
-
-    push constant 0
-    pop  temp     1
+    // Calculates (local 1) modulo 7 (inefficently), stores this in (local 1)
 
     label WHILE_INCOMPLETE
         push local 1
