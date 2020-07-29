@@ -24,7 +24,9 @@ This program maps hack vm code:
 
 To hack assembely:
 
-    ...
+    .
+    .
+    .
     // label WHILE_INCOMPLETE
     (WHILE_INCOMPLETE)
     // push local 1
@@ -51,4 +53,6 @@ To hack assembely:
     D=M
     A=A-1
     M=M-D
-    ...
+    .
+    .
+    .
