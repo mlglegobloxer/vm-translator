@@ -1,6 +1,8 @@
-# This program implements a command dictionary containing the generalised assembely for each command
+# This program implements a command dictionary containing the generalised assembely for each command 
 # Author: George Duke, Course: Nand to Tetris (ii)
 
+# Define a list of commands to set the inital state of the command dictionary
+Init_command_list = ["// Set SP to 256", "@256", "D=A", "@SP", "M=D"]
 
 # Define the AL command dictionary (for arithmetic/logic commands)
 AL_command_dictionary = {

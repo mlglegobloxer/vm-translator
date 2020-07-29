@@ -3,87 +3,6 @@
 D=A
 @SP
 M=D
-// add
-@SP
-M=M-1
-A=M
-D=M
-A=A-1
-M=M+D
-// sub
-@SP
-M=M-1
-A=M
-D=M
-A=A-1
-M=M-D
-// neg
-@SP
-A=M-1
-M=-M
-// eq
-@SP
-M=M-1
-A=M
-D=M
-A=A-1
-@TRUE0
-M=M-D;JEQ
-M=0
-@END0
-0;JMP
-(TRUE0)
-D=0
-M=!D
-(END0)
-// gt
-@SP
-M=M-1
-A=M
-D=M
-A=A-1
-@TRUE1
-M=M-D;JGT
-M=0
-@END1
-0;JMP
-(TRUE1)
-D=0
-M=!D
-(END1)
-// lt
-@SP
-M=M-1
-A=M
-D=M
-A=A-1
-@TRUE2
-M=M-D;JLT
-M=0
-@END2
-0;JMP
-(TRUE2)
-D=0
-M=!D
-(END2)
-// and
-@SP
-M=M-1
-A=M
-D=M
-A=A-1
-M=D&M
-// or
-@SP
-M=M-1
-A=M
-D=M
-A=A-1
-M=D|M
-// not
-@SP
-A=M-1
-M=!M
 // push local 1
 @LCL
 D=M
@@ -132,7 +51,7 @@ M=M+1
 A=M-1
 M=D
 // push static 6
-@tests/Basic-Test/test_prog.6
+@tests/Basic-Test/test2.6
 D=M
 @SP
 M=M+1
@@ -213,7 +132,7 @@ M=D
 M=M-1
 A=M
 D=M
-@tests/Basic-Test/test_prog.7
+@tests/Basic-Test/test2.7
 M=D
 // pop pointer 1
 @SP
@@ -229,15 +148,3 @@ A=M
 D=M
 @5
 M=D
-// label TESTLABEL
-(TESTLABEL)
-// goto TESTLABEL
-@TESTLABEL
-0;JMP
-// if-goto TESTLABEL
-@SP
-M=M-1
-A=M
-D=M
-@TESTLABEL
-D=D+1;JEQ

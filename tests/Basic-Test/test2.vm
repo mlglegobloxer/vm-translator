@@ -1,13 +1,5 @@
-// This test contains 1 variation of each command type
-add
-sub
-neg
-eq
-gt
-lt
-and
-or
-not
+// Commment
+
 push local 1
 push argument 2
 push this 3
@@ -23,6 +15,3 @@ pop that 1
 pop static 7
 pop pointer 1
 pop temp 1
-label TESTLABEL
-goto TESTLABEL
-if-goto TESTLABEL

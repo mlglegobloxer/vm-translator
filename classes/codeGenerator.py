@@ -17,11 +17,10 @@ class Generator:
         # Define a varible used to generate unique labels for commands that require them 
         self.i = 0
 
-        # Set the stack pointer to 256
-        self.output_file.writelines('\n'.join(["// Set SP to 256", "@256", "D=A", "@SP", "M=D"]) + "\n")
-        # Does this need to be done for local, argument, this and that???
+        # Set the initial state of the stack machine
+        self.output_file.writelines('\n'.join(Init_command_list) + "\n")
         
-
+        
     def writeArithmetic(self, semantics):
         # Writes arithmetic / logic commands to output file, given the commands semantics #
         # Write the original command commented out (for debugging)
@@ -64,6 +63,20 @@ class Generator:
         # Write the assembely to the output
         self.output_file.writelines('\n'.join(assembely) + "\n") 
 
+
+    def writeBranching(self, semantics):
+        # Writes branching commands to output file, given the commands semantics #
+        # Write the original command commented out (for debugging)
+        self.output_file.writelines("// " + ' '.join(str(item) for item in semantics[1:]) + "\n")
+        # Generate the correct assembely for the commad
+        if semantics[1] == "label":
+            assembely = [f'({semantics[2]})']
+        elif semantics[1] == "goto":
+            assembely = [f"@{semantics[2]}", "0;JMP"]
+        elif semantics[1] == "if-goto":
+            assembely = ["@SP", "M=M-1", "A=M", "D=M", f"@{semantics[2]}", "D=D+1;JEQ"]
+        # Write the correct assembly for the command to the outputfile
+        self.output_file.writelines('\n'.join(assembely) + "\n") 
 
     def close(self):
         self.output_file.close()

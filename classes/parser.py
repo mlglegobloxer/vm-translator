@@ -8,7 +8,8 @@ class Parser:
 
         # Define self.lines as the list of all lines in the input_file (removing \n, then comments or empty space)
         self.lines = [line.rstrip() for line in input_file.readlines()]
-        self.lines = [line for line in self.lines if ("/" not in line) and (line != "")]
+        self.lines = [line for line in self.lines if ("/" not in line) and (line != "")] # Inline comments on vm code not allowed
+        #self.__codeValid__(self.lines) # Check code is valid
         self.lines.reverse() # So the advance() method may use pop() to remove parsed lines
 
         input_file.close()
@@ -27,6 +28,10 @@ class Parser:
         if semantics[0] in ["push", "pop"]:
             semantics = [0] + semantics         # Add 0 to the start of the list
             semantics[-1] = int(semantics[-1])  # Convert index from <str> to <int>
+        
+        elif semantics[0] in ["label", "if-goto", "goto"]:
+            semantics = [2] + semantics         # Add 2 to the start of the list
+        
         else:
             semantics = [1] + semantics         # Add 1 to the start of the list
 
@@ -35,4 +40,12 @@ class Parser:
         # Return the semantics in the form:
         # For Push / Pop : [type(0), command<str>, segment<str>, index<index>]
         # For Arithmetic : [type(1), command<str>]
+        # For Branching  : [type(2), command<str>, reference<str>]
+        # For Functions  : [type(3), ]
         
+
+    #def __codeValid__():
+    #    # Checks self.lines is all valid code
+    #    # Not currently implemented
+    #    print("valid")
+    #    return()
