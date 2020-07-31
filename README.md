@@ -4,7 +4,7 @@ My implementation of the vm-translator from the NAND to Tetris course on corsera
 
 Usage:
 
-    $ python vm-translator path
+    $ python vm-translator.py path
 
 Where path leads to either:
 
