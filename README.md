@@ -13,7 +13,7 @@ Where path leads to either:
 
 &nbsp;
 
-This program maps hack vm code:
+This program compiles hack vm code:
 
     // Calculates (local 1) modulo 7 (inefficently), stores this in (local 1)
 
