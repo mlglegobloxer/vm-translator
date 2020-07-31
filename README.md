@@ -11,6 +11,8 @@ Where path leads to either:
 - A single .vm file to compile
 - A directory to compile all .vm files inside
 
+&nbsp;
+
 This program maps hack vm code:
 
     // Calculates (local 1) modulo 7 (inefficently), stores this in (local 1)
