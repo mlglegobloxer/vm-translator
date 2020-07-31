@@ -1,6 +1,15 @@
 # VM Translator
+
 My implementation of the vm-translator from the NAND to Tetris course on corsera
 
+Usage:
+
+    $ python vm-translator path
+
+Where path leads to either:
+
+- A single .vm file to compile
+- A directory to compile all .vm files inside
 
 This program maps hack vm code:
 

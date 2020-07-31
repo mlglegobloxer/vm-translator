@@ -12,8 +12,7 @@ if os.path.isdir(argv[1]):
     # file_names = list of every .vm files in the given directory
     file_names = [os.path.join(argv[1], file) for file in os.listdir(argv[1]) if file[-3:] == '.vm']
 else:
-    # Input is a single file
-    file_names = [argv[1]]
+    file_names = [argv[1]] # Input is a single file
 
 # Compile all input files
 for file_name in file_names:
