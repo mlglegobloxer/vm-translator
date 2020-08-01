@@ -41,10 +41,3 @@ class Parser:
         # For Arithmetic : [type(1), command<str>]
         # For Branching  : [type(2), command<str>, reference<str>]
         # For Functions  : [type(3), ]
-        
-
-    #def __codeValid__():
-    #    # Checks self.lines is all valid code
-    #    # Not currently implemented
-    #    print("valid")
-    #    return()
