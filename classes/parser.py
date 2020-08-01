@@ -9,7 +9,6 @@ class Parser:
         # Define self.lines as the list of all lines in the input_file (removing \n, then comments or empty space)
         self.lines = [line.rstrip() for line in input_file.readlines()]
         self.lines = [line for line in self.lines if ("/" not in line) and (line != "")] # Inline comments on vm code not allowed
-        #self.__codeValid__(self.lines) # Check code is valid
         self.lines.reverse() # So the advance() method may use pop() to remove parsed lines
 
         input_file.close()
@@ -20,7 +19,7 @@ class Parser:
 
 
     def advance(self):
-        # Reads the current command, removes self.lines, returns its semantics #
+        # Reads the current command, removes it from self.lines, returns its semantics #
         current_line = self.lines.pop() # Command to be processed
         semantics = current_line.split() # Break into parts
 

@@ -26,6 +26,6 @@ for file_name in file_names:
         if   semantics[0] == 0: generator.writePushPop(semantics)
         elif semantics[0] == 1: generator.writeArithmetic(semantics)
         elif semantics[0] == 2: generator.writeBranching(semantics)
-            
-# Close the output file
-generator.close()
+
+    # Close the output file
+    generator.close()

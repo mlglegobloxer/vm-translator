@@ -22,61 +22,60 @@ class Generator:
         
         
     def writeArithmetic(self, semantics):
-        # Writes arithmetic / logic commands to output file, given the commands semantics #
-        # Write the original command commented out (for debugging)
+        """ Writes arithmetic / logic commands to output file, given the commands semantics """
         self.output_file.writelines("// " + ' '.join(str(item) for item in semantics[1:]) + "\n")
-        # Generate assembly from the AL comm. dict.
+        
         assembely = self.AL_command_dictionary[semantics[1]] 
         # For commands that need to create unique labels, use i to do so
         if semantics[1] in ["eq", "gt", "lt"]:
             assembely = [sub("i", str(self.i), command) for command in assembely]
             self.i += 1
-        # Write the assembely to the output file
-        self.output_file.writelines('\n'.join(assembely) + "\n")
+        
+        self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
 
 
     def __specialPushPopRegex__(self, semantics, assembely):
-        ### Special Command Processing For: static, temp, pointer. Used by the writePushPop() method, implemented for modularity ###
-        # For commmands using static replace # with the file_name.index
+        """ Special Command Processing For: static, temp, pointer. Used by the writePushPop() method, implemented for modularity """
         if semantics[2] == "static":
             return([sub("#", str(self.file_name[0:-3]) + str(semantics[3]), command) for command in assembely])
-        # For commmands using temp replace # with the 4 + index
+        
         elif semantics[2] == "temp":
             return([sub("#", str(4 + semantics[3]), command) for command in assembely])
-        # For commmands using pointer replace # with: THIS, (index = 0) or THAT, (index = 1)
+        
         elif semantics[2] == "pointer":
             this_that = "THIS" if semantics[3] == 0 else "THAT"
             return([sub("#", this_that, command) for command in assembely])
-        # For non special commands, do nothing
-        else:   
-            return(assembely)
+        
+        else: 
+            return(assembely) # For non special commands, do nothing
 
 
     def writePushPop(self, semantics):
-        # Writes push / pop commands to output file, given the commands semantics #
-        # Write the original command commented out (for debugging)
+        """ Writes push / pop commands to output file, given the commands semantics """
         self.output_file.writelines("// " + ' '.join(str(item) for item in semantics[1:]) + "\n")
-        # Assembely generation
-        assembely = self.PP_command_dictionary[semantics[2] + " " + semantics[1]] # Lookup command in the PP comm. dict.
-        assembely = [sub("\*", str(semantics[3]), command) for command in assembely] # Replace placeholder * with the index of the specific command using regex
-        assembely = self.__specialPushPopRegex__(semantics, assembely) # Process special commands
-        # Write the assembely to the output
-        self.output_file.writelines('\n'.join(assembely) + "\n") 
+        
+        # Assembly generation
+        assembely = self.PP_command_dictionary[semantics[2] + " " + semantics[1]]     # Lookup command in the PP comm. dict.
+        assembely = [sub("\*", str(semantics[3]), command) for command in assembely]  # Replace placeholder * with the index of the specific command using regex
+        assembely = self.__specialPushPopRegex__(semantics, assembely)                # Process special commands
+        
+        self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
 
 
     def writeBranching(self, semantics):
-        # Writes branching commands to output file, given the commands semantics #
-        # Write the original command commented out (for debugging)
+        """ Writes branching commands to output file, given the commands semantics """
         self.output_file.writelines("// " + ' '.join(str(item) for item in semantics[1:]) + "\n")
-        # Generate the correct assembely for the commad
+        
+        # Generate assembely
         if semantics[1] == "label":
             assembely = [f'({semantics[2]})']
         elif semantics[1] == "goto":
             assembely = [f"@{semantics[2]}", "0;JMP"]
         elif semantics[1] == "if-goto":
             assembely = ["@SP", "M=M-1", "A=M", "D=M", f"@{semantics[2]}", "D=D+1;JEQ"]
-        # Write the correct assembly for the command to the outputfile
-        self.output_file.writelines('\n'.join(assembely) + "\n") 
+        
+        self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
+
 
     def close(self):
         self.output_file.close()
