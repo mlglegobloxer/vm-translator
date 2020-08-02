@@ -1,6 +1,6 @@
 # VM Translator
 
-My implementation of the vm-translator from the NAND to Tetris course on corsera
+My implementation of the vm-translator from the NAND to Tetris course on coursera
 
 Usage:
 
