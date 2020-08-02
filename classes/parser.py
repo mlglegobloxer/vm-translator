@@ -20,7 +20,7 @@ class Parser:
 
     def advance(self):
         # Reads the current command, removes it from self.lines, returns its semantics #
-        current_line = self.lines.pop() # Command to be processed
+        current_line = self.lines.pop()  # Command to be processed
         semantics = current_line.split() # Break into parts
 
         # Encode the command's type (0 => push/pop, 1 => arithmetic/logic, 2 => branching, 3 => function)
@@ -31,13 +31,26 @@ class Parser:
         elif semantics[0] in ["label", "if-goto", "goto"]:
             semantics = [2] + semantics         # Add 2 to the start of the list
         
+        elif semantics[0] == "function":
+            semantics = [3] + semantics
+            semantics[-1] = int(semantics[-1])  # Convert nvar from <str> to <int>
+
+        elif semantics[0] == "call":
+            semantics = [4] + semantics
+            semantics[-1] = int(semantics[-1])  # Convert nargs from <str> to <int>
+
+        elif semantics[0] == "return":
+            semantics = [5] + semantics
+
         else:
             semantics = [1] + semantics         # Add 1 to the start of the list
 
         return(semantics)
 
         # Return the semantics in the form:
-        # For Push / Pop : [type(0), command<str>, segment<str>, index<index>]
+        # For Push / Pop : [type(0), command<str>, segment<str>, index<int>]
         # For Arithmetic : [type(1), command<str>]
         # For Branching  : [type(2), command<str>, reference<str>]
-        # For Functions  : [type(3), ]
+        # For Function   : [type(3), command<str>, name<str>, nvars<int>] 
+        # For Call       : [type(4), command<str>, name<str>, nargs<int>]
+        # For Return     : [type(5), command<str>]

@@ -77,5 +77,19 @@ class Generator:
         self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
 
 
+    def writeFunction(self, semantics):
+        """ Writes function declarations to output file, given semantics """
+        pass
+
+    def writeCall(self, semantics):
+        """ Writes function calls to output file, given semantics """
+        pass
+
+    def writeReturn(self, semantics):
+        """ Writes function return commands to output file, given semantics """
+        pass
+
+
+
     def close(self):
         self.output_file.close()
