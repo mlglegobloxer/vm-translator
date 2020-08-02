@@ -7,7 +7,7 @@ from classes.commandDictionaries import *
 
 class Generator:
     def __init__(self, file_name):
-        self.file_name = file_name[0:-3] + ".asm" # Change extention from .vm to .asm
+        self.file_name = file_name
         self.output_file = open(self.file_name, "w")
 
         # Define the command dictonaries for all command types
