@@ -23,8 +23,8 @@ generator = classes.codeGenerator.Generator(output_file_name)
 # Compile all input files
 for file_name in input_file_names:
     # Construct the parser for the file
-    parser    = classes.parser.Parser(file_name)
-    # Compile each line
+    parser = classes.parser.Parser(file_name)
+    # Translate each line
     while parser.hasMoreCommands():
         semantics = parser.advance()
         # Translate into assembely using the correct method

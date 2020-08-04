@@ -79,16 +79,25 @@ class Generator:
 
     def writeFunction(self, semantics):
         """ Writes function declarations to output file, given semantics """
-        pass
+        self.output_file.writelines("// " + ' '.join(str(item) for item in semantics[1:]) + "\n")
+
+        assembely = [f"({str(semantics[2])})"] + (["@SP", "M=M+1", "A=M-1", "M=0"] * semantics[3])
+
+        self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
+
 
     def writeCall(self, semantics):
         """ Writes function calls to output file, given semantics """
-        pass
+        assembely = []
+        
+        self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
+
 
     def writeReturn(self, semantics):
         """ Writes function return commands to output file, given semantics """
-        pass
+        assembely = []
 
+        self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
 
 
     def close(self):
