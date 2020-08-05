@@ -26,3 +26,9 @@ pop temp 1
 label TESTLABEL
 goto TESTLABEL
 if-goto TESTLABEL
+function lol 4
+push constant 10
+push constant 10
+add
+return
+call lol 0

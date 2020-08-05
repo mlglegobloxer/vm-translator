@@ -13,6 +13,8 @@ class Generator:
         # Define the command dictonaries for all command types
         self.AL_command_dictionary = AL_command_dictionary
         self.PP_command_dictionary = PP_command_dictionary
+        self.Return_command_list = Return_command_list
+        self.Call_command_list = Call_command_list
         
         # Define a varible used to generate unique labels for commands that require them 
         self.i = 0
@@ -23,7 +25,7 @@ class Generator:
         
     def writeArithmetic(self, semantics):
         """ Writes arithmetic / logic commands to output file, given the commands semantics """
-        self.output_file.writelines("// " + ' '.join(str(item) for item in semantics[1:]) + "\n")
+        self.writeComment(semantics)
         
         assembely = self.AL_command_dictionary[semantics[1]] 
         # For commands that need to create unique labels, use i to do so
@@ -31,7 +33,7 @@ class Generator:
             assembely = [sub("i", str(self.i), command) for command in assembely]
             self.i += 1
         
-        self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
+        self.writeAssembely(assembely)
 
 
     def __specialPushPopRegex__(self, semantics, assembely):
@@ -52,19 +54,19 @@ class Generator:
 
     def writePushPop(self, semantics):
         """ Writes push / pop commands to output file, given the commands semantics """
-        self.output_file.writelines("// " + ' '.join(str(item) for item in semantics[1:]) + "\n")
+        self.writeComment(semantics)
         
         # Assembly generation
         assembely = self.PP_command_dictionary[semantics[2] + " " + semantics[1]]     # Lookup command in the PP comm. dict.
         assembely = [sub("\*", str(semantics[3]), command) for command in assembely]  # Replace placeholder * with the index of the specific command using regex
         assembely = self.__specialPushPopRegex__(semantics, assembely)                # Process special commands
-        
-        self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
+
+        self.writeAssembely(assembely)
 
 
     def writeBranching(self, semantics):
         """ Writes branching commands to output file, given the commands semantics """
-        self.output_file.writelines("// " + ' '.join(str(item) for item in semantics[1:]) + "\n")
+        self.writeComment(semantics)
         
         # Generate assembely
         if semantics[1] == "label":
@@ -74,30 +76,48 @@ class Generator:
         elif semantics[1] == "if-goto":
             assembely = ["@SP", "M=M-1", "A=M", "D=M", f"@{semantics[2]}", "D=D+1;JEQ"]
         
-        self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
+        self.writeAssembely(assembely)
 
 
     def writeFunction(self, semantics):
         """ Writes function declarations to output file, given semantics """
-        self.output_file.writelines("// " + ' '.join(str(item) for item in semantics[1:]) + "\n")
+        self.writeComment(semantics)
 
         assembely = [f"({str(semantics[2])})"] + (["@SP", "M=M+1", "A=M-1", "M=0"] * semantics[3])
 
-        self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
+        self.writeAssembely(assembely)
 
 
     def writeCall(self, semantics):
         """ Writes function calls to output file, given semantics """
-        assembely = []
+        self.writeComment(semantics)
+
+        # Assembely generation
+        assembely = self.Call_command_list
+        assembely = [sub("functionName", semantics[2], command) for command in assembely]
+        assembely = [sub("decrement_val", str(5 + semantics[3]), command) for command in assembely]
+        assembely = [sub("i", str(self.i), command) for command in assembely]
         
-        self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
+        self.i += 1 # Increment i
+        
+        self.writeAssembely(assembely)
 
 
     def writeReturn(self, semantics):
         """ Writes function return commands to output file, given semantics """
-        assembely = []
+        self.writeComment(semantics)
 
-        self.output_file.writelines('\n'.join(assembely) + "\n") # Write the assembely
+        assembely = self.Return_command_list
+
+        self.writeAssembely(assembely)
+
+
+    def writeComment(self, semantics):
+        self.output_file.writelines("// " + ' '.join(str(item) for item in semantics[1:]) + "\n")
+
+
+    def writeAssembely(self, assembely):
+        self.output_file.writelines('\n'.join(assembely) + "\n")
 
 
     def close(self):

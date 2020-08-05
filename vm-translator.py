@@ -32,8 +32,8 @@ for file_name in input_file_names:
         elif semantics[0] == 1: generator.writeArithmetic(semantics)
         elif semantics[0] == 2: generator.writeBranching(semantics)
         elif semantics[0] == 3: generator.writeFunction(semantics)
-        elif semantics[0] == 3: generator.writeCall(semantics)
-        elif semantics[0] == 3: generator.writeReturn(semantics)
+        elif semantics[0] == 4: generator.writeCall(semantics)
+        elif semantics[0] == 5: generator.writeReturn(semantics)
 
     # Close the output file
 
