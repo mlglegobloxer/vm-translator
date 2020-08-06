@@ -1,6 +1,8 @@
 # This program implements a parser class for the vm translator
 # Author: George Duke, Course: Nand to Tetris (ii)
 
+import re
+
 class Parser:
     # Constructor method: read input file, initialise object
     def __init__(self, file_name):
@@ -8,7 +10,8 @@ class Parser:
 
         # Define self.lines as the list of all lines in the input_file (removing \n, then comments or empty space)
         self.lines = [line.rstrip() for line in input_file.readlines()]
-        self.lines = [line for line in self.lines if ("/" not in line) and (line != "")] # Inline comments on vm code not allowed
+        self.lines = [re.sub(re.compile("//.*$"), "", line) for line in self.lines] # Remove comments
+        self.lines = [line for line in self.lines if (line != "")] # Remove empty lines
         self.lines.reverse() # So the advance() method may use pop() to remove parsed lines
 
         input_file.close()

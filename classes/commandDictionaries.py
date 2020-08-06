@@ -2,7 +2,17 @@
 # Author: George Duke, Course: Nand to Tetris (ii)
 
 # Define a list of commands to set the inital state of the command dictionary
-Init_command_list = ["// Set SP to 256", "@256", "D=A", "@SP", "M=D"]
+Init_command_list = ["// Set SP to 256", "@256", "D=A", "@SP", "M=D",
+                     "// call Sys.init 0",
+                     "@Sys.init$ret.0", "D=A", "@SP", "M=M+1", "A=M-1", "M=D",
+                     "@LCL", "D=M", "@SP", "M=M+1", "A=M-1", "M=D",
+                     "@ARG", "D=M", "@SP", "M=M+1", "A=M-1", "M=D",
+                     "@THIS", "D=M", "@SP", "M=M+1", "A=M-1", "M=D",
+                     "@THAT", "D=M", "@SP", "M=M+1", "A=M-1", "M=D",
+                     "@SP", "D=M", "@5", "D=D-A", "@ARG", "M=D",
+                     "@SP", "D=M", "@LCL", "M=D",
+                     "@Sys.init", "0;JMP", "(Sys.init$ret.0)"
+]
 
 # Define the AL command dictionary (for arithmetic/logic commands)
 AL_command_dictionary = {
@@ -40,14 +50,14 @@ PP_command_dictionary = {
 
 # Define the list of commands to be written at call
 Call_command_list = [
-    "@functionName$ret.i", "D=A", "@SP", "M=M+1", "A=M-1", "M=D",
+    "@functionName$ret.#", "D=A", "@SP", "M=M+1", "A=M-1", "M=D",
     "@LCL", "D=M", "@SP", "M=M+1", "A=M-1", "M=D",
     "@ARG", "D=M", "@SP", "M=M+1", "A=M-1", "M=D",
     "@THIS", "D=M", "@SP", "M=M+1", "A=M-1", "M=D",
     "@THAT", "D=M", "@SP", "M=M+1", "A=M-1", "M=D",
     "@SP", "D=M", "@decrement_val", "D=D-A", "@ARG", "M=D",
     "@SP", "D=M", "@LCL", "M=D",
-    "@functionName", "0;JMP", "(functionName$ret.i)"
+    "@functionName", "0;JMP", "(functionName$ret.#)"
 ]
 
 

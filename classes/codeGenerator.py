@@ -17,7 +17,7 @@ class Generator:
         self.Call_command_list = Call_command_list
         
         # Define a varible used to generate unique labels for commands that require them 
-        self.i = 0
+        self.i = 1
 
         # Set the initial state of the stack machine
         self.output_file.writelines('\n'.join(Init_command_list) + "\n")
@@ -96,7 +96,7 @@ class Generator:
         assembely = self.Call_command_list
         assembely = [sub("functionName", semantics[2], command) for command in assembely]
         assembely = [sub("decrement_val", str(5 + semantics[3]), command) for command in assembely]
-        assembely = [sub("i", str(self.i), command) for command in assembely]
+        assembely = [sub("#", str(self.i), command) for command in assembely]
         
         self.i += 1 # Increment i
         
